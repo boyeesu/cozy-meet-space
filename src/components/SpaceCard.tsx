@@ -19,7 +19,12 @@ export const SpaceCard = ({ space, onSelect }: SpaceCardProps) => {
 
   const handleBookNow = () => {
     onSelect(space);
-    navigate("/space-details", { state: { space } });
+    navigate("/space-details", { 
+      state: { 
+        space,
+        timestamp: new Date().toISOString() // Add timestamp to ensure state is fresh
+      } 
+    });
   };
 
   return (
