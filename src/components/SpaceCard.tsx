@@ -1,6 +1,13 @@
 import { Space } from "@/types/booking";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { useNavigate } from "react-router-dom";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 interface SpaceCardProps {
   space: Space;
@@ -8,6 +15,13 @@ interface SpaceCardProps {
 }
 
 export const SpaceCard = ({ space, onSelect }: SpaceCardProps) => {
+  const navigate = useNavigate();
+
+  const handleBookNow = () => {
+    onSelect(space);
+    navigate("/space-details", { state: { space } });
+  };
+
   return (
     <Card className="w-full">
       <CardHeader>
@@ -22,13 +36,17 @@ export const SpaceCard = ({ space, onSelect }: SpaceCardProps) => {
         <div className="space-y-2">
           <p className="text-gray-600">{space.description}</p>
           <div className="flex justify-between items-center">
-            <span className="text-sm font-medium">Capacity: {space.capacity}</span>
-            <span className="text-sm font-medium">₦{space.pricePerSlot}/6hrs</span>
+            <span className="text-sm font-medium">
+              Capacity: {space.capacity}
+            </span>
+            <span className="text-sm font-medium">
+              ₦{space.pricePerSlot}/6hrs
+            </span>
           </div>
         </div>
       </CardContent>
       <CardFooter>
-        <Button onClick={() => onSelect(space)} className="w-full">
+        <Button onClick={handleBookNow} className="w-full">
           Book Now
         </Button>
       </CardFooter>
